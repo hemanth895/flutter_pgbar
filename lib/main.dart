@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:progress_app/homepage.dart';
 
-//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
 
 void main() {
   runApp(const MyApp());
