@@ -37,11 +37,11 @@ class MyData extends GetxController {
 
   List<ColorModel> colorOptions = [
     const ColorModel(Color.fromARGB(242, 12, 71, 14), 'Green', Colors.green),
-    const ColorModel(Color.fromARGB(255, 5, 79, 139), 'Blue', Colors.blue),
+    const ColorModel(Color.fromARGB(255, 5, 79, 139), 'Blue', Color.fromARGB(255, 77, 151, 212)),
     const ColorModel(Color.fromARGB(255, 131, 18, 10), 'Red',
-        Color.fromARGB(255, 147, 53, 32)),
+        Color.fromARGB(255, 176, 86, 66)),
     const ColorModel(Color.fromARGB(255, 22, 7, 155), 'Purple',
-        Color.fromARGB(255, 63, 52, 159)),
+        Color.fromARGB(255, 80, 68, 190)),
   ];
 
   late Rx<ColorModel> selectedColor;
