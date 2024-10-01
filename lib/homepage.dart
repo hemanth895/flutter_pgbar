@@ -16,57 +16,57 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 130),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 130),
 
-                SizedBox(
-                  width: 350,
+              SizedBox(
+                width: 350,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
                       buildNetworkImage(myData),
-
+                  
                       const SizedBox(height: 2),
-
+                  
                       // Color Picker
                       ColorPicker(myData: myData),
                       const SizedBox(height: 2),
-
+                  
                       // Slider for Speed
                       CustomSlider(myData: myData),
                       const SizedBox(height: 2),
-
+                  
                       // Custom Text Fields for Input
                       buildTextFields(myData),
-
+                  
                       const SizedBox(height: 2),
-
+                  
                       // Switch for Reverse Progress
                       buildReverseSwitch(myData),
-
+                  
                       const SizedBox(height: 2),
                     ],
                   ),
                 ),
+              ),
 
-                const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-                // Custom Progress Indicator
-                Obx(
-                  () => CustomProgressIndicator(
-                    totalItems: myData.totalItems.value,
-                    itemsInLine: myData.itemsInLine.value,
-                    color: myData.selectedColor.value.color,
-                    isReversed: myData.isReversed.value,
-                    speed: myData.selectedSpeed.value,
-                  ),
+              // Custom Progress Indicator
+              Obx(
+                () => CustomProgressIndicator(
+                  totalItems: myData.totalItems.value,
+                  itemsInLine: myData.itemsInLine.value,
+                  color: myData.selectedColor.value.color,
+                  isReversed: myData.isReversed.value,
+                  speed: myData.selectedSpeed.value,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

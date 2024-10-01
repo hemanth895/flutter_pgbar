@@ -36,12 +36,10 @@ class ColorPicker extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-
                 underline: Container(),
                 isExpanded: true,
                 dropdownColor: Colors.white,
                 elevation: 5,
-                // Display the name of the selected color as text
                 selectedItemBuilder: (BuildContext context) {
                   return myData.colorOptions
                       .map<Widget>((ColorModel colorModel) {
@@ -58,7 +56,6 @@ class ColorPicker extends StatelessWidget {
                     );
                   }).toList();
                 },
-                // Define the dropdown menu items
                 items: myData.colorOptions.map((ColorModel colorModel) {
                   return DropdownMenuItem<ColorModel>(
                     value: colorModel,

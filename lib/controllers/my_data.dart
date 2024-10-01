@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-// ColorModel class to hold color values and names
 class ColorModel {
   final Color color;
   final String name;
+  final Color baseColor;
 
-  ColorModel(this.color, this.name);
+  const ColorModel(this.color, this.name, this.baseColor);
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is ColorModel &&
-        other.color == color; // Compare based on color
+        other.color == color &&
+        other.name == name &&
+        other.baseColor == baseColor;
   }
 
   @override
-  int get hashCode => color.hashCode; // Hash code based on color
+  int get hashCode => color.hashCode ^ name.hashCode ^ baseColor.hashCode;
 }
 
 enum Speed {
@@ -26,27 +28,29 @@ enum Speed {
 }
 
 class MyData extends GetxController {
-  // Observable variables for state management
-  var itemsInLine = 1.obs; // Input for items in line
-  var totalItems = 1.obs; // Input for total items
-  var isReversed = false.obs; // Switch for reversing progress
-  var selectedSpeed = Speed.slow.obs; // Observable for speed selection
+  var itemsInLine = 1.obs; 
+  var totalItems = 1.obs; 
+  var isReversed = false.obs; 
+  var selectedSpeed = Speed.slow.obs;
 
   var sliderValue = 0.5.obs;
 
-  // Make selectedColor an observable and set the initial color to green
-  var selectedColor =
-      ColorModel(Colors.green, 'Green').obs; // Initial color for the text field
-
-  // Predefined color options for the color picker
   List<ColorModel> colorOptions = [
-    ColorModel(Colors.green, 'Green'),
-    ColorModel(Colors.blue, 'Blue'),
-    ColorModel(const Color.fromARGB(255, 133, 18, 10), 'Red'),
-    ColorModel(Colors.purple, 'Purple'),
+    const ColorModel(Color.fromARGB(242, 12, 71, 14), 'Green', Colors.green),
+    const ColorModel(Color.fromARGB(255, 5, 79, 139), 'Blue', Colors.blue),
+    const ColorModel(Color.fromARGB(255, 131, 18, 10), 'Red',
+        Color.fromARGB(255, 147, 53, 32)),
+    const ColorModel(Color.fromARGB(255, 22, 7, 155), 'Purple',
+        Color.fromARGB(255, 63, 52, 159)),
   ];
 
-  // Methods for updating observable values
+  late Rx<ColorModel> selectedColor;
+
+  @override
+  void onInit() {
+    super.onInit();
+    selectedColor = colorOptions.first.obs;
+  }
 
   void updateSliderValue(double value) {
     if (value < 0.5) {
@@ -71,22 +75,19 @@ class MyData extends GetxController {
     isReversed.value = !isReversed.value;
   }
 
-  // Method to reset all values if needed
   void resetValues() {
-    selectedColor.value = ColorModel(Colors.green, 'Green'); // Reset to green
+    selectedColor.value = colorOptions.first;
     sliderValue.value = 0.5;
     itemsInLine.value = 1;
     totalItems.value = 1;
     isReversed.value = false;
-    selectedSpeed.value = Speed.slow; // Reset to slow speed
+    selectedSpeed.value = Speed.slow;
   }
 
-  // Method to update the selected color
   void updateSelectedColor(ColorModel colorModel) {
     selectedColor.value = colorModel;
   }
 
-  // Method to update the selected speed
   void updateSelectedSpeed(Speed speed) {
     selectedSpeed.value = speed;
   }

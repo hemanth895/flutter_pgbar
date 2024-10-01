@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  final String labelText; // Hint text to display
-  final Color borderColor; // Color for the border
-  final Function(String) onChanged; // Callback for onChanged event
+  final String labelText; 
+  final Color borderColor; 
+  final Function(String) onChanged; 
 
   const CustomTextField({
     super.key,
@@ -18,7 +18,7 @@ class CustomTextField extends StatelessWidget {
       margin: const EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 4,
-      ), // Margin for spacing
+      ), 
       child: TextField(
         keyboardType: TextInputType.number,
         style: TextStyle(color: borderColor),
@@ -26,29 +26,30 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: TextStyle(
-            fontSize: 16,
-            color: borderColor, // Color for the label text
+            fontSize: 14,
+            color: borderColor, 
+            fontWeight: FontWeight.w600
           ),
           hintStyle: const TextStyle(
             fontSize: 16,
-            color: Colors.black54, // Color for the hint text
+            color: Colors.black54, 
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(color: borderColor), // Set border color
+            borderSide: BorderSide(color: borderColor), 
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide:
-                BorderSide(color: borderColor), // Set focused border color
+                BorderSide(color: borderColor), 
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide:
-                BorderSide(color: borderColor), // Set enabled border color
+                BorderSide(color: borderColor), 
           ),
           contentPadding:
-              const EdgeInsets.fromLTRB(12, 24, 12, 12), // Padding for top-left
+              const EdgeInsets.fromLTRB(12, 24, 12, 12), 
         ),
       ),
     );

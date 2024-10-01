@@ -29,9 +29,9 @@ class CustomSlider extends StatelessWidget {
           min: 0,
           max: 1,
           divisions: 2,
-          activeColor: myData.selectedColor.value.color,
+          activeColor: myData.selectedColor.value.baseColor,
           onChanged: (value) {
-            myData.updateSliderValue(value); // Update the slider value
+            myData.updateSliderValue(value); 
           },
           label: currentSliderValue,
         );

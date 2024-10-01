@@ -26,7 +26,7 @@ Widget buildTextFields(MyData myData) {
       Obx(
         () => CustomTextField(
           labelText: "Total Items",
-          borderColor: myData.selectedColor.value.color,
+          borderColor: myData.selectedColor.value.baseColor,
           onChanged: (value) {
             final int totalItems = int.tryParse(value) ?? 1;
             myData.updateTotalItems(totalItems);
@@ -36,7 +36,7 @@ Widget buildTextFields(MyData myData) {
       Obx(
         () => CustomTextField(
           labelText: "Items in Line",
-          borderColor: myData.selectedColor.value.color,
+          borderColor: myData.selectedColor.value.baseColor,
           onChanged: (value) {
             final int items = int.tryParse(value) ?? 1;
             myData.updateItemsInLine(items);
@@ -57,15 +57,16 @@ Widget buildReverseSwitch(MyData myData) {
           title: Text(
             "Reverse",
             style: TextStyle(
-              fontSize: 18,
-              color: myData.selectedColor.value.color,
+              fontSize: 16,
+              color: myData.selectedColor.value.baseColor,
+              fontWeight: FontWeight.w600,
             ),
           ),
           value: myData.isReversed.value,
           onChanged: (value) {
             myData.toggleReverse();
           },
-          activeColor: myData.selectedColor.value.color,
+          activeColor: myData.selectedColor.value.baseColor,
         ),
       ),
     ),

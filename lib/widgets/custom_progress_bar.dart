@@ -97,89 +97,95 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
   @override
   Widget build(BuildContext context) {
     int totalLines = (widget.totalItems / widget.itemsInLine).ceil();
-    double itemWidth = (MediaQuery.of(context).size.width -
-            100 -
-            (widget.itemsInLine - 1) * 8) /
-        widget.itemsInLine;
+    double totalAvailableWidth = MediaQuery.of(context).size.width -
+        32; // Total available width for the items (with some padding).
+    double itemWidth = (totalAvailableWidth - (widget.itemsInLine - 1) * 8) /
+        widget
+            .itemsInLine; // Distribute width across items, accounting for margins.
 
-    return Column(
-      children: List.generate(
-        totalLines,
-        (lineIndex) {
-          int remainingItems =
-              widget.totalItems - (lineIndex * widget.itemsInLine);
-          int itemsInThisLine = remainingItems > widget.itemsInLine
-              ? widget.itemsInLine
-              : remainingItems;
-
-          return Column(
-            children: [
-              Row(
-                mainAxisAlignment: itemsInThisLine < widget.itemsInLine
-                    ? MainAxisAlignment.center
-                    : MainAxisAlignment.start,
-                children: List.generate(
-                  itemsInThisLine,
-                  (itemIndex) {
-                    int globalItemIndex =
-                        (lineIndex * widget.itemsInLine) + itemIndex;
-                    bool isAnimatingItem = globalItemIndex == currentIndex;
-
-                    return Container(
-                      width: itemWidth,
-                      height: 20,
-                      margin: const EdgeInsets.symmetric(horizontal: 8),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 2,
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Column(
+        children: List.generate(
+          totalLines,
+          (lineIndex) {
+            int remainingItems =
+                widget.totalItems - (lineIndex * widget.itemsInLine);
+            int itemsInThisLine = remainingItems > widget.itemsInLine
+                ? widget.itemsInLine
+                : remainingItems;
+      
+            return Column(
+              children: [
+                Row(
+                  mainAxisAlignment: itemsInThisLine < widget.itemsInLine
+                      ? MainAxisAlignment.center
+                      : MainAxisAlignment.start,
+                  children: List.generate(
+                    itemsInThisLine,
+                    (itemIndex) {
+                      int globalItemIndex =
+                          (lineIndex * widget.itemsInLine) + itemIndex;
+                      bool isAnimatingItem = globalItemIndex == currentIndex;
+      
+                      return Container(
+                        width: itemWidth,
+                        height: 20,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 4), 
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2,
+                          ),
                         ),
-                      ),
-                      child: AnimatedBuilder(
-                        animation: _controller,
-                        builder: (context, child) {
-                          double progress;
-                          if (isAnimatingItem) {
-                            progress = _controller.value;
-                          } else if (widget.isReversed) {
-                            progress =
-                                globalItemIndex < currentIndex ? 0.0 : 1.0;
-                          } else {
-                            progress =
-                                globalItemIndex < currentIndex ? 1.0 : 0.0;
-                          }
-
-                          return FractionallySizedBox(
-                            alignment: widget.isReversed
-                                ? Alignment.centerRight
-                                : Alignment.centerLeft,
-                            widthFactor: progress,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                gradient: LinearGradient(
-                                  colors: [
-                                    widget.color.withOpacity(0.5),
-                                    widget.color.withOpacity(1.0),
-                                  ],
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
+                        child: AnimatedBuilder(
+                          animation: _controller,
+                          builder: (context, child) {
+                            double progress;
+                            if (isAnimatingItem) {
+                              progress = _controller.value;
+                            } else if (widget.isReversed) {
+                              progress =
+                                  globalItemIndex < currentIndex ? 0.0 : 1.0;
+                            } else {
+                              progress =
+                                  globalItemIndex < currentIndex ? 1.0 : 0.0;
+                            }
+      
+                            return FractionallySizedBox(
+                              alignment: widget.isReversed
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              widthFactor: progress,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      widget.color.withOpacity(0.5),
+                                      widget.color.withOpacity(1.0),
+                                      //Colors.black.withAlpha(255),
+                                    ],
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  },
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20),
-            ],
-          );
-        },
+                const SizedBox(height: 20),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
